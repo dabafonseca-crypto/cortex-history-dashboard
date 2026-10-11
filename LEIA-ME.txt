@@ -1,0 +1,31 @@
+CORTEX HISTORY — DASHBOARD NAVEGÁVEL
+
+VISUALIZAR AGORA (NO ACER):
+- Abra index.html no navegador: prévia real da captura de 11/10/2026 às 10:02.
+
+VISUALIZAR TODAS AS COLETAS DO HOMELAB (SEM SERVIDOR ADICIONAL):
+1. Copie esta pasta para ~/cortex-hotlist-collector/dashboard/ no homelab.
+2. Abra um terminal no homelab e rode:
+      cd ~/cortex-hotlist-collector/dashboard
+      python3 export_history.py
+3. Abra pelo navegador gráfico do homelab o arquivo:
+      file:///home/dan/cortex-hotlist-collector/dashboard/index-real.html
+   A página terá TODAS as coletas presentes no SQLite, não apenas a amostra.
+   Basta rodar novamente o export_history.py para atualizar.
+
+ARQUIVOS:
+- index.html: interface com dados de prévia / modelo base.
+- export_history.py: exportação SQLite somente leitura.
+- data.json: gerado pelo exportador para futura hospedagem estática.
+- index-real.html: gerado pelo exportador para visualização offline sem servidor.
+
+PENDENTE:
+- Ainda não foi publicado no GitHub Pages.
+- Ainda não foi configurado Supabase nem sincronização automática.
+- A coleta diária após boot ainda precisa ser validada em reinício real.
+
+SEGURANÇA:
+- Os arquivos data.json / index-real.html contêm históricos de mercado.
+- NÃO publique o diretório ~/cortex-hotlist-collector/ inteiro!
+- NÃO publique .auth, receiver.token, dados do Chrome ou backups.
+- Decidir política de acesso antes de publicar em GitHub Pages.
