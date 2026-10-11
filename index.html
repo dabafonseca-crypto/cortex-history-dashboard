@@ -18,26 +18,23 @@ main{min-width:0;padding:34px clamp(18px,4vw,56px) 64px}.topline{display:flex;ju
 </head>
 <body>
 <div class="shell">
-<aside><div class="brand"><div class="brandmark">◈</div><span>CORTEX <span>HISTORY</span></span></div><div class="subbrand">INTELLIGENCE ARCHIVE</div><div class="navlabel">PAINEL</div><a class="nav active" href="#hotlist">▤ &nbsp; Hotlist histórica</a><a class="nav" href="#evolucao">▥ &nbsp; Evolução dos ativos</a><a class="nav" href="#coletas">◷ &nbsp; Coletas disponíveis</a><div class="sidefoot"><span class="dot"></span><span id="sideState">Prévia local</span><br>Histórico completo, sem arredondar scores armazenados.</div></aside>
+<aside><div class="brand"><div class="brandmark">◈</div><span>CORTEX <span>HISTORY</span></span></div><div class="subbrand">INTELLIGENCE ARCHIVE</div><div class="navlabel">PAINEL</div><a class="nav active" href="#hotlist">▤ &nbsp; Hotlist histórica</a><a class="nav" href="#evolucao">▥ &nbsp; Evolução dos ativos</a><a class="nav" href="#coletas">◷ &nbsp; Coletas disponíveis</a><div class="sidefoot"><span class="dot"></span><span id="sideState">Conectando ao Supabase…</span><br>Histórico completo, sem arredondar scores armazenados.</div></aside>
 <main id="hotlist">
-<div class="topline"><div class="crumb">ANÁLISE & TRADING / ARQUIVO</div><span class="tag" id="sourceTag">PRÉVIA LOCAL</span></div>
-<div class="intro"><div><h1>Hotlist Histórica</h1><p>Volte no tempo e compare a força dos ativos registrados pela Cortex.</p></div><div class="buttons"><button class="button" id="preciseBtn" type="button" aria-pressed="false">Score exato</button><button class="button primary" id="csvBtn" type="button">↓ Exportar CSV</button></div></div>
-<div class="notice" id="notice"><strong>PRÉVIA:</strong> mostrando uma captura já confirmada em 11/10/2026 às 10:02. O arquivo exportado do seu SQLite substituirá esta amostra e disponibilizará todas as coletas.</div>
+<div class="topline"><div class="crumb">ANÁLISE & TRADING / ARQUIVO</div><span class="tag" id="sourceTag">CONECTANDO…</span></div>
+<div class="intro"><div><h1>Hotlist Histórica</h1><p>Volte no tempo e compare a força dos ativos registrados pela Cortex.</p></div><div class="buttons"><button class="button" id="refreshBtn" type="button">↻ Atualizar dados</button><button class="button" id="preciseBtn" type="button" aria-pressed="false">Score exato</button><button class="button primary" id="csvBtn" type="button">↓ Exportar CSV</button></div></div>
+<div class="notice" id="notice" role="status" aria-live="polite">Conectando ao histórico no Supabase…</div>
 <div class="toolbar"><div class="control"><label for="date">Data histórica</label><select id="date"></select></div><div class="control"><label for="snapshot">Atualização Cortex</label><select id="snapshot"></select></div><div class="control wide"><label for="asset">Ativo para evolução</label><select id="asset"></select></div></div>
 <div class="statgrid"><div class="stat"><div class="label">Ativos monitorados</div><div class="number" id="total">—</div><div class="small">Na atualização selecionada</div></div><div class="stat"><div class="label">Tendência de compra</div><div class="number pos" id="buyers">—</div><div class="small">Compra e compra forte</div></div><div class="stat"><div class="label">Tendência de venda</div><div class="number neg" id="sellers">—</div><div class="small">Venda e venda forte</div></div><div class="stat"><div class="label">Maior score absoluto</div><div class="number" id="biggest">—</div><div class="small" id="biggestAsset">—</div></div></div>
 <section class="panel"><div class="panelhead"><div><h2>Ranking de força</h2><p id="subtitle">Todos os ativos da atualização selecionada</p></div><div class="filters"><input id="search" class="search" placeholder="Buscar ativo" aria-label="Buscar ativo"/><button type="button" class="filter active" data-filter="all">Todos</button><button type="button" class="filter" data-filter="buy">Compras</button><button type="button" class="filter" data-filter="sell">Vendas</button></div></div><div class="tblwrap"><table><thead><tr><th>#</th><th>Ativo</th><th>Tendência</th><th>Score</th><th style="width:32%">Força e posição da barra</th></tr></thead><tbody id="rows"></tbody></table></div><div id="noresults" class="noresults" hidden>Não há ativos que correspondam ao filtro.</div></section>
 <div class="lower"><section class="panel mini" id="evolucao"><h2>Evolução do ativo</h2><p id="chartSubtitle">Escolha um ativo para visualizar suas capturas ao longo do tempo.</p><div id="chart" class="chartarea"></div></section><section class="panel mini" id="coletas"><h2>Arquivo de coletas</h2><p>Registros do dia selecionado, em ordem cronológica.</p><div id="timeline" class="timeline"></div></section></div>
-<div class="footer">Cortex History — interface demonstrativa independente, sem acesso a sua conta ou credenciais. A publicação no GitHub Pages e a sincronização com Supabase são etapas posteriores. <strong>Não publique tokens, cookies ou arquivos de sessão.</strong></div>
+<div class="footer">Cortex History — dashboard público de leitura dos registros da tabela Cortex no Supabase. Não exibe registros dos recibos. O histórico é atualizado quando esta página abre ou quando você clica em Atualizar dados. A sincronização automática de novas coletas ainda será configurada.</div>
 </main></div>
 <script>
-// Amostra: primeira captura auditada de 11/10/2026, 10:02 (America/Sao_Paulo).
-// O exportador lê TODOS os registros do banco real e gera data.json neste mesmo formato.
-// DASHBOARD_INLINE_DATA_START
-const DEMO = {version:1,generated_at:null,captures:[{id:1,reference_date:'2026-10-11',collected_utc:'2026-10-11T13:15:09.535Z',source_updated_at:'2026-10-11T13:02:00+00:00',asset_count:13,ativos:[
-[1,'US500','COMPRA FORTE',5.258,50,50],[2,'AUDNZD','COMPRA FORTE',4.646183333333333,50,44.182],[3,'AUDCAD','COMPRA',3.8186166666666668,50,36.3124],[4,'USDCAD','COMPRA',3.4217333333333335,50,32.5384],[5,'USDJPY','COMPRA',3,50,28.528],[6,'USOIL','COMPRA',2.44005,50,23.2032],[7,'GBPCAD','COMPRA',2.2818,50,21.6984],[8,'EURCAD','VENDA',-2.3009,25.7622,24.2378],[9,'EURUSD','VENDA',-2.3382,25.3693,24.6307],[10,'EURGBP','VENDA',-3.775166666666667,10.2322,39.7678],[11,'CHINA50','VENDA',-3.86,9.3386,40.6614],[12,'NZDCHF','VENDA FORTE',-4.0344,7.50147,42.4985],[13,'EURAUD','VENDA FORTE',-4.7465166666666665,0,50]
-].map(([posicao,ativo,tendencia,score,barra_inicio,barra_largura])=>({posicao,ativo,tendencia,score,barra_inicio:barra_inicio+'%',barra_largura:barra_largura+'%',classe:''}))}]};
-// DASHBOARD_INLINE_DATA_END
-const $=id=>document.getElementById(id);let history=DEMO, activeFilter='all', precise=false;const fmt=(n)=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:5});
+// API pública somente leitura. A chave sb_publishable não concede acesso administrativo.
+// As permissões são controladas pela política RLS da tabela Cortex.
+const SUPABASE_URL = 'https://xccqttgbofdinjkqbmjv.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_IETyFM-fBesrf1Z3uvM4vQ_D5kUn4iR';
+const $=id=>document.getElementById(id);let history={captures:[]}, activeFilter='all', precise=false;const fmt=(n)=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:5});
 const safe=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const brdate=d=>{const [y,m,day]=d.split('-');return [day,m,y].join('/')};
 const hhmm=s=>{const d=new Date(s);return Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'}).format(d)};
@@ -45,12 +42,115 @@ const selected=()=>history.captures.find(c=>String(c.id)===$('snapshot').value)|
 const pool=()=>history.captures.filter(c=>c.reference_date===$('date').value);
 const trendBuy=t=>String(t).toUpperCase().includes('COMPRA')||String(t).toUpperCase().includes('ALTA');
 const normalize=raw=>raw.captures.map((c,i)=>({...c,id:c.id??(i+1),ativos:Array.isArray(c.ativos)?c.ativos:[]})).filter(c=>c.ativos.length&&c.reference_date);
-function init(){history.captures=normalize(history);history.captures.sort((a,b)=>String(a.source_updated_at).localeCompare(String(b.source_updated_at)));const dates=[...new Set(history.captures.map(c=>c.reference_date))].sort().reverse();$('date').innerHTML=dates.map(d=>`<option value="${safe(d)}">${brdate(d)}</option>`).join('');$('date').addEventListener('change',fillSnapshots);$('snapshot').addEventListener('change',render);$('asset').addEventListener('change',renderChart);$('search').addEventListener('input',renderTable);document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{activeFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderTable()}));$('preciseBtn').addEventListener('click',()=>{precise=!precise;$('preciseBtn').setAttribute('aria-pressed',String(precise));$('preciseBtn').textContent=precise?'Score resumido':'Score exato';renderTable()});$('csvBtn').addEventListener('click',exportCsv);fillSnapshots();}
+function init(){
+  $('date').addEventListener('change',fillSnapshots);
+  $('snapshot').addEventListener('change',render);
+  $('asset').addEventListener('change',renderChart);
+  $('search').addEventListener('input',renderTable);
+  document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{
+    activeFilter=b.dataset.filter;
+    document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));
+    renderTable();
+  }));
+  $('preciseBtn').addEventListener('click',()=>{
+    precise=!precise;
+    $('preciseBtn').setAttribute('aria-pressed',String(precise));
+    $('preciseBtn').textContent=precise?'Score resumido':'Score exato';
+    renderTable();
+  });
+  $('csvBtn').addEventListener('click',exportCsv);
+  $('refreshBtn').addEventListener('click',loadAndRender);
+  emptyView();
+}
+function emptyView(){
+  $('date').innerHTML='<option>Sem dados</option>';
+  $('snapshot').innerHTML='<option>Sem coletas</option>';
+  $('asset').innerHTML='<option>—</option>';
+  $('rows').innerHTML='';
+  $('noresults').hidden=false;
+  $('noresults').textContent='Aguardando registros do Supabase.';
+  $('chart').textContent='Aguardando dados.';
+  $('timeline').innerHTML='';
+}
+function applyHistory(captures){
+  history.captures=normalize({captures});
+  history.captures.sort((a,b)=>String(a.source_updated_at).localeCompare(String(b.source_updated_at)));
+  const dates=[...new Set(history.captures.map(c=>c.reference_date))].sort().reverse();
+  const previous=$('date').value;
+  $('date').innerHTML=dates.map(d=>`<option value="${safe(d)}">${brdate(d)}</option>`).join('');
+  if(dates.includes(previous))$('date').value=previous;
+  fillSnapshots();
+}
 function fillSnapshots(){const snapshots=pool().slice().reverse();$('snapshot').innerHTML=snapshots.map(c=>`<option value="${safe(c.id)}">${safe(hhmm(c.source_updated_at))} · ${c.asset_count??c.ativos.length} ativos</option>`).join('');const assets=[...new Set(history.captures.flatMap(c=>c.ativos.map(a=>a.ativo)))].sort();const before=$('asset').value;$('asset').innerHTML=assets.map(a=>`<option value="${safe(a)}">${safe(a)}</option>`).join('');if(assets.includes(before))$('asset').value=before;else if(assets.includes('US500'))$('asset').value='US500';render();}
 function render(){const c=selected();if(!c)return;const list=c.ativos;const buys=list.filter(a=>trendBuy(a.tendencia));$('total').textContent=list.length;$('buyers').textContent=buys.length;$('sellers').textContent=list.length-buys.length;const peak=list.reduce((p,a)=>Math.abs(a.score)>Math.abs(p.score)?a:p,list[0]);$('biggest').textContent=fmt(Math.abs(peak.score));$('biggestAsset').textContent=peak.ativo;$('subtitle').textContent=`Atualização Cortex: ${brdate(c.reference_date)} às ${hhmm(c.source_updated_at)} • ${list.length} ativos`;$('timeline').innerHTML=pool().map(v=>`<div class="item"><span><b>${safe(hhmm(v.source_updated_at))}</b> <small>Atualização Cortex</small></span><span>${v.ativos.length} ativos</span></div>`).join('');renderTable();renderChart();}
 function renderTable(){const c=selected();if(!c)return;const q=$('search').value.trim().toUpperCase();const rows=c.ativos.filter(a=>String(a.ativo).toUpperCase().includes(q)&&(activeFilter==='all'||(activeFilter==='buy')===trendBuy(a.tendencia)));$('rows').innerHTML=rows.map(a=>{const buy=trendBuy(a.tendencia);const left=Math.max(0,Math.min(100,parseFloat(a.barra_inicio)||0));const width=Math.max(0,Math.min(100-left,parseFloat(a.barra_largura)||0));return `<tr><td class="rank">${safe(a.posicao)}</td><td><div class="asset">${safe(a.ativo)}</div><div class="market">${safe(a.classe||'ATIVO')}</div></td><td><span class="trend ${buy?'buy':'sell'}">${safe(a.tendencia)}</span></td><td><span class="score ${buy?'green':'red'}" title="${safe(a.score)}">${precise?safe(String(a.score)):fmt(a.score)}</span></td><td><div class="track" title="Início ${safe(a.barra_inicio)} · Largura ${safe(a.barra_largura)}"><span class="segment ${buy?'g':'r'}" style="left:${left}%;width:${width}%"></span></div></td></tr>`}).join('');$('noresults').hidden=rows.length>0;}
 function renderChart(){const asset=$('asset').value;const all=history.captures.filter(c=>c.ativos.some(a=>a.ativo===asset)).map(c=>({x:new Date(c.source_updated_at).getTime(),y:Number(c.ativos.find(a=>a.ativo===asset).score),time:hhmm(c.source_updated_at),date:brdate(c.reference_date)}));$('chartSubtitle').textContent=`${asset} • ${all.length} captura(s) no arquivo`;const div=$('chart');if(!all.length){div.textContent='Não há capturas desse ativo.';return}const W=530,H=120,L=30,R=15,T=10,B=30;let min=Math.min(0,...all.map(v=>v.y)),max=Math.max(0,...all.map(v=>v.y));if(max===min){max+=1;min-=1}const X=i=>L+(W-L-R)*(all.length===1?.5:i/(all.length-1));const Y=v=>T+(H-T-B)*(max-v)/(max-min);const pts=all.map((v,i)=>[X(i),Y(v.y)]);const poly=pts.map(p=>p.join(',')).join(' ');const zero=Y(0);div.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Evolução do score de ${safe(asset)}"><line x1="${L}" y1="${zero}" x2="${W-R}" y2="${zero}" stroke="#557083" stroke-dasharray="4 5"/><text x="4" y="${Math.max(14,zero-4)}" fill="#7c94aa" font-size="10">0</text>${pts.length>1?`<polyline fill="none" stroke="#22e3a2" stroke-width="2.6" points="${poly}"/>`:''}${pts.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="4" fill="${all[i].y>=0?'#22e3a2':'#ff537a'}"><title>${safe(all[i].date+' '+all[i].time+': '+all[i].y)}</title></circle>`).join('')}<text x="${L}" y="${H-2}" fill="#8194a8" font-size="10">${safe(all[0].date+' '+all[0].time)}</text><text x="${W-R}" y="${H-2}" text-anchor="end" fill="#8194a8" font-size="10">${safe(all.at(-1).date+' '+all.at(-1).time)}</text></svg>`;}
 function exportCsv(){const c=selected();if(!c)return;const headers=['posicao','ativo','classe','tendencia','score','barra_inicio','barra_largura'];const quote=x=>{let s=String(x??'');if(/^[=+@-]/.test(s)&&Number.isNaN(Number(s)))s="'"+s;return '"'+s.replaceAll('"','""')+'"'};const content='\uFEFF'+[headers.join(';'),...c.ativos.map(a=>headers.map(k=>quote(a[k])).join(';'))].join('\n');const url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));const el=document.createElement('a');el.href=url;el.download=`cortex-${c.reference_date}-${hhmm(c.source_updated_at).replace(':','')}.csv`;el.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
-(async()=>{if(location.protocol!=='file:'){try{const r=await fetch('./data.json',{cache:'no-store'});if(r.ok){const raw=await r.json();if(raw&&Array.isArray(raw.captures)&&raw.captures.length){history=raw;$('notice').innerHTML='<strong>DADOS DO SQLITE:</strong> arquivo histórico carregado com sucesso. Os dados abaixo foram exportados do seu banco local.';$('sourceTag').textContent='HISTÓRICO LOCAL';$('sideState').textContent='Arquivo SQLite exportado';}}}catch(e){/* modo prévia */}}init()})();
+// GET público e paginado: nenhuma escrita, agendamento ou monitoramento contínuo.
+async function getCaptures(){
+  const captures=[];
+  const batchSize=1000;
+  // Paginação evita perder histórico após os primeiros 1000 registros.
+  for(let offset=0;;offset+=batchSize){
+    const endpoint=new URL(SUPABASE_URL+'/rest/v1/cortex_history_captures');
+    endpoint.searchParams.set('select','id,reference_date,source_updated_at,asset_count,payload_json');
+    endpoint.searchParams.set('order','source_updated_at.asc,id.asc');
+    endpoint.searchParams.set('limit',String(batchSize));
+    endpoint.searchParams.set('offset',String(offset));
+    const r=await fetch(endpoint.toString(),{
+      method:'GET',
+      headers:{'apikey':SUPABASE_PUBLISHABLE_KEY,'Accept':'application/json'},
+      cache:'no-store',
+      signal:AbortSignal.timeout(20000)
+    });
+    if(!r.ok){
+      let details='';
+      try{const error=await r.json();details=error.message||error.hint||error.code||'';}catch(e){}
+      throw new Error('Supabase respondeu HTTP '+r.status+(details?' — '+details:''));
+    }
+    const records=await r.json();
+    if(!Array.isArray(records))throw new Error('Resposta inesperada do Supabase');
+    for(const row of records){
+      const payload=row.payload_json;
+      if(!payload||!Array.isArray(payload.ativos)||
+         payload.ativos.length!==row.asset_count||
+         !row.reference_date||!row.source_updated_at){
+        throw new Error('Registro de captura incompleto');
+      }
+      captures.push({
+        id:row.id,
+        reference_date:row.reference_date,
+        source_updated_at:row.source_updated_at,
+        asset_count:row.asset_count,
+        ativos:payload.ativos
+      });
+    }
+    if(records.length<batchSize)break;
+  }
+  return captures;
+}
+async function loadAndRender(){
+  const btn=$('refreshBtn');
+  btn.disabled=true;
+  $('sourceTag').textContent='CONSULTANDO SUPABASE';
+  $('notice').textContent='Consultando as coletas reais no Supabase…';
+  try{
+    const captures=await getCaptures();
+    if(!captures.length)throw new Error('Nenhuma coleta encontrada na tabela Cortex');
+    applyHistory(captures);
+    $('sourceTag').textContent='HISTÓRICO SUPABASE';
+    $('sideState').textContent='Histórico online';
+    const total=captures.reduce((n,c)=>n+c.asset_count,0);
+    $('notice').textContent=`SUPABASE CONECTADO: ${captures.length} coleta(s) e ${total} observações. Dados reais da tabela Cortex. Nenhuma coleta é executada pelo dashboard.`;
+  }catch(e){
+    // Nunca mostrar dados de demonstração como se fossem da nuvem.
+    $('sourceTag').textContent='ERRO DE CONEXÃO';
+    $('sideState').textContent='Conexão indisponível';
+    $('notice').textContent='Não foi possível consultar o histórico Cortex: '+(e?.message||String(e))+'. Use “Atualizar dados” para tentar novamente.';
+    if(!history.captures.length)emptyView();
+  }finally{btn.disabled=false;}
+}
+init();
+void loadAndRender();
 </script>
 </body></html>
