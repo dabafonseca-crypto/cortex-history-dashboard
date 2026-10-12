@@ -24,8 +24,8 @@ main{min-width:0;padding:34px clamp(18px,4vw,56px) 64px}.topline{display:flex;ju
 <div class="intro"><div><h1>Hotlist Histórica</h1><p>Volte no tempo e compare a força dos ativos registrados pela Cortex.</p></div><div class="buttons"><button class="button" id="refreshBtn" type="button">↻ Atualizar dados</button><button class="button primary" id="csvBtn" type="button">↓ Exportar CSV</button></div></div>
 <div class="notice" id="notice" role="status" aria-live="polite">Conectando ao histórico no Supabase…</div>
 <div class="toolbar"><div class="control"><label for="date">Data histórica</label><select id="date"></select></div><div class="control"><label for="snapshot">Atualização Cortex</label><select id="snapshot"></select></div><div class="control wide"><label for="asset">Ativo para evolução</label><select id="asset"></select></div></div>
-<div class="statgrid"><div class="stat"><div class="label">Ativos monitorados</div><div class="number" id="total">—</div><div class="small">Na atualização selecionada</div></div><div class="stat"><div class="label">Tendência de compra</div><div class="number pos" id="buyers">—</div><div class="small">Compra e compra forte</div></div><div class="stat"><div class="label">Tendência de venda</div><div class="number neg" id="sellers">—</div><div class="small">Venda e venda forte</div></div><div class="stat"><div class="label">Maior score absoluto</div><div class="number" id="biggest">—</div><div class="small" id="biggestAsset">—</div></div></div>
-<section class="panel"><div class="panelhead"><div><h2>Ranking de força</h2><p id="subtitle">Todos os ativos da atualização selecionada</p><p id="barNote" style="font-size:11px;color:#8296a6;margin-top:5px"></p></div><div class="filters"><input id="search" class="search" placeholder="Buscar ativo" aria-label="Buscar ativo"/><button type="button" class="filter active" data-filter="all">Todos</button><button type="button" class="filter" data-filter="buy">Compras</button><button type="button" class="filter" data-filter="sell">Vendas</button></div></div><div class="tblwrap"><table><thead><tr><th>#</th><th>Ativo</th><th>Tendência</th><th>Score</th><th style="width:32%">Força e posição da barra</th></tr></thead><tbody id="rows"></tbody></table></div><div id="noresults" class="noresults" hidden>Não há ativos que correspondam ao filtro.</div></section>
+<div class="statgrid"><div class="stat"><div class="label">Ativos monitorados</div><div class="number" id="total">—</div><div class="small">Na atualização selecionada</div></div><div class="stat"><div class="label">Tendência de alta</div><div class="number pos" id="buyers">—</div><div class="small">Alta e alta forte</div></div><div class="stat"><div class="label">Tendência de baixa</div><div class="number neg" id="sellers">—</div><div class="small">Baixa e baixa forte</div></div><div class="stat"><div class="label">Maior score absoluto</div><div class="number" id="biggest">—</div><div class="small" id="biggestAsset">—</div></div></div>
+<section class="panel"><div class="panelhead"><div><h2>Ranking de força</h2><p id="subtitle">Todos os ativos da atualização selecionada</p><p id="barNote" style="font-size:11px;color:#8296a6;margin-top:5px"></p></div><div class="filters"><input id="search" class="search" placeholder="Buscar ativo" aria-label="Buscar ativo"/><button type="button" class="filter active" data-filter="all">Todos</button><button type="button" class="filter" data-filter="buy">Altas</button><button type="button" class="filter" data-filter="sell">Baixas</button></div></div><div class="tblwrap"><table><thead><tr><th>#</th><th>Ativo</th><th>Tendência</th><th>Score</th><th style="width:32%">Força e posição da barra</th></tr></thead><tbody id="rows"></tbody></table></div><div id="noresults" class="noresults" hidden>Não há ativos que correspondam ao filtro.</div></section>
 <div class="lower"><section class="panel mini" id="evolucao"><h2>Evolução do ativo</h2><p id="chartSubtitle">Escolha um ativo para visualizar suas capturas ao longo do tempo.</p><div id="chart" class="chartarea"></div></section><section class="panel mini" id="coletas"><h2>Arquivo de coletas</h2><p>Registros do dia selecionado, em ordem cronológica.</p><div id="timeline" class="timeline"></div></section></div>
 <div class="footer">Cortex History — dashboard público de leitura dos registros da tabela Cortex no Supabase. Não exibe registros dos recibos. A página consulta os registros do Supabase ao abrir ou quando você clica em Atualizar dados. Scores exibidos com duas casas; dados originais preservados no histórico e no CSV.</div>
 </main></div>
@@ -40,6 +40,26 @@ const brdate=d=>{const [y,m,day]=d.split('-');return [day,m,y].join('/')};
 const hhmm=s=>{const d=new Date(s);return Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'}).format(d)};
 const selected=()=>history.captures.find(c=>String(c.id)===$('snapshot').value)||history.captures[0];
 const pool=()=>history.captures.filter(c=>c.reference_date===$('date').value);
+// Exibição visual conforme a escala da Cortex (score integral, nunca arredondado).
+// Limites estritos: +4,00 permanece ALTA; -4,00 permanece BAIXA.
+// O texto original de 'tendencia' continua intacto no Supabase e no CSV.
+function rotuloTendencia(ativo){
+  const score=Number(ativo.score);
+  if(Number.isFinite(score)){
+    if(score>4)return 'ALTA FORTE';
+    if(score>0)return 'ALTA';
+    if(score<-4)return 'BAIXA FORTE';
+    if(score<0)return 'BAIXA';
+    return 'NEUTRO';
+  }
+  // Apenas se o score estiver indisponível (não ocorre nas coletas validadas).
+  const original=String(ativo.tendencia||'').toUpperCase();
+  if(original.includes('FORTE')&&(original.includes('COMPRA')||original.includes('ALTA')))return 'ALTA FORTE';
+  if(original.includes('COMPRA')||original.includes('ALTA'))return 'ALTA';
+  if(original.includes('FORTE')&&(original.includes('VENDA')||original.includes('BAIXA')))return 'BAIXA FORTE';
+  if(original.includes('VENDA')||original.includes('BAIXA'))return 'BAIXA';
+  return original||'—';
+}
 const trendBuy=t=>String(t).toUpperCase().includes('COMPRA')||String(t).toUpperCase().includes('ALTA');
 const normalize=raw=>raw.captures.map((c,i)=>({...c,id:c.id??(i+1),ativos:Array.isArray(c.ativos)?c.ativos:[]})).filter(c=>c.ativos.length&&c.reference_date);
 function init(){
@@ -119,7 +139,7 @@ function renderTable(){
       'Barra original — início '+String(a.barra_inicio)+'; largura '+String(a.barra_largura);
     return `<tr><td class="rank">${safe(a.posicao)}</td>`+
       `<td><div class="asset">${safe(a.ativo)}</div><div class="market">${safe(a.classe||'ATIVO')}</div></td>`+
-      `<td><span class="trend ${buy?'buy':'sell'}">${safe(a.tendencia)}</span></td>`+
+      `<td><span class="trend ${buy?'buy':'sell'}">${safe(rotuloTendencia(a))}</span></td>`+
       `<td><span class="score ${buy?'green':'red'}" title="Score original: ${safe(a.score)}">${fmt(a.score)}</span></td>`+
       `<td><div class="track" title="${safe(aviso)}" aria-label="${safe(aviso)}">`+
       `<span class="segment ${buy?'g':'r'}" style="left:${geom.inicio}%;width:${geom.largura}%"></span></div></td></tr>`;
