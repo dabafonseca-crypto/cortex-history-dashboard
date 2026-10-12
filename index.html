@@ -18,23 +18,23 @@ main{min-width:0;padding:34px clamp(18px,4vw,56px) 64px}.topline{display:flex;ju
 </head>
 <body>
 <div class="shell">
-<aside><div class="brand"><div class="brandmark">◈</div><span>CORTEX <span>HISTORY</span></span></div><div class="subbrand">INTELLIGENCE ARCHIVE</div><div class="navlabel">PAINEL</div><a class="nav active" href="#hotlist">▤ &nbsp; Hotlist histórica</a><a class="nav" href="#evolucao">▥ &nbsp; Evolução dos ativos</a><a class="nav" href="#coletas">◷ &nbsp; Coletas disponíveis</a><div class="sidefoot"><span class="dot"></span><span id="sideState">Conectando ao Supabase…</span><br>Histórico completo, sem arredondar scores armazenados.</div></aside>
+<aside><div class="brand"><div class="brandmark">◈</div><span>CORTEX <span>HISTORY</span></span></div><div class="subbrand">INTELLIGENCE ARCHIVE</div><div class="navlabel">PAINEL</div><a class="nav active" href="#hotlist">▤ &nbsp; Hotlist histórica</a><a class="nav" href="#evolucao">▥ &nbsp; Evolução dos ativos</a><a class="nav" href="#coletas">◷ &nbsp; Coletas disponíveis</a><div class="sidefoot"><span class="dot"></span><span id="sideState">Conectando ao Supabase…</span><br>Histórico completo; scores armazenados sem arredondamento.</div></aside>
 <main id="hotlist">
 <div class="topline"><div class="crumb">ANÁLISE & TRADING / ARQUIVO</div><span class="tag" id="sourceTag">CONECTANDO…</span></div>
-<div class="intro"><div><h1>Hotlist Histórica</h1><p>Volte no tempo e compare a força dos ativos registrados pela Cortex.</p></div><div class="buttons"><button class="button" id="refreshBtn" type="button">↻ Atualizar dados</button><button class="button" id="preciseBtn" type="button" aria-pressed="false">Score exato</button><button class="button primary" id="csvBtn" type="button">↓ Exportar CSV</button></div></div>
+<div class="intro"><div><h1>Hotlist Histórica</h1><p>Volte no tempo e compare a força dos ativos registrados pela Cortex.</p></div><div class="buttons"><button class="button" id="refreshBtn" type="button">↻ Atualizar dados</button><button class="button primary" id="csvBtn" type="button">↓ Exportar CSV</button></div></div>
 <div class="notice" id="notice" role="status" aria-live="polite">Conectando ao histórico no Supabase…</div>
 <div class="toolbar"><div class="control"><label for="date">Data histórica</label><select id="date"></select></div><div class="control"><label for="snapshot">Atualização Cortex</label><select id="snapshot"></select></div><div class="control wide"><label for="asset">Ativo para evolução</label><select id="asset"></select></div></div>
 <div class="statgrid"><div class="stat"><div class="label">Ativos monitorados</div><div class="number" id="total">—</div><div class="small">Na atualização selecionada</div></div><div class="stat"><div class="label">Tendência de compra</div><div class="number pos" id="buyers">—</div><div class="small">Compra e compra forte</div></div><div class="stat"><div class="label">Tendência de venda</div><div class="number neg" id="sellers">—</div><div class="small">Venda e venda forte</div></div><div class="stat"><div class="label">Maior score absoluto</div><div class="number" id="biggest">—</div><div class="small" id="biggestAsset">—</div></div></div>
-<section class="panel"><div class="panelhead"><div><h2>Ranking de força</h2><p id="subtitle">Todos os ativos da atualização selecionada</p></div><div class="filters"><input id="search" class="search" placeholder="Buscar ativo" aria-label="Buscar ativo"/><button type="button" class="filter active" data-filter="all">Todos</button><button type="button" class="filter" data-filter="buy">Compras</button><button type="button" class="filter" data-filter="sell">Vendas</button></div></div><div class="tblwrap"><table><thead><tr><th>#</th><th>Ativo</th><th>Tendência</th><th>Score</th><th style="width:32%">Força e posição da barra</th></tr></thead><tbody id="rows"></tbody></table></div><div id="noresults" class="noresults" hidden>Não há ativos que correspondam ao filtro.</div></section>
+<section class="panel"><div class="panelhead"><div><h2>Ranking de força</h2><p id="subtitle">Todos os ativos da atualização selecionada</p><p id="barNote" style="font-size:11px;color:#8296a6;margin-top:5px"></p></div><div class="filters"><input id="search" class="search" placeholder="Buscar ativo" aria-label="Buscar ativo"/><button type="button" class="filter active" data-filter="all">Todos</button><button type="button" class="filter" data-filter="buy">Compras</button><button type="button" class="filter" data-filter="sell">Vendas</button></div></div><div class="tblwrap"><table><thead><tr><th>#</th><th>Ativo</th><th>Tendência</th><th>Score</th><th style="width:32%">Força e posição da barra</th></tr></thead><tbody id="rows"></tbody></table></div><div id="noresults" class="noresults" hidden>Não há ativos que correspondam ao filtro.</div></section>
 <div class="lower"><section class="panel mini" id="evolucao"><h2>Evolução do ativo</h2><p id="chartSubtitle">Escolha um ativo para visualizar suas capturas ao longo do tempo.</p><div id="chart" class="chartarea"></div></section><section class="panel mini" id="coletas"><h2>Arquivo de coletas</h2><p>Registros do dia selecionado, em ordem cronológica.</p><div id="timeline" class="timeline"></div></section></div>
-<div class="footer">Cortex History — dashboard público de leitura dos registros da tabela Cortex no Supabase. Não exibe registros dos recibos. O histórico é atualizado quando esta página abre ou quando você clica em Atualizar dados. A sincronização automática de novas coletas ainda será configurada.</div>
+<div class="footer">Cortex History — dashboard público de leitura dos registros da tabela Cortex no Supabase. Não exibe registros dos recibos. A página consulta os registros do Supabase ao abrir ou quando você clica em Atualizar dados. Scores exibidos com duas casas; dados originais preservados no histórico e no CSV.</div>
 </main></div>
 <script>
 // API pública somente leitura. A chave sb_publishable não concede acesso administrativo.
 // As permissões são controladas pela política RLS da tabela Cortex.
 const SUPABASE_URL = 'https://xccqttgbofdinjkqbmjv.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_IETyFM-fBesrf1Z3uvM4vQ_D5kUn4iR';
-const $=id=>document.getElementById(id);let history={captures:[]}, activeFilter='all', precise=false;const fmt=(n)=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:5});
+const $=id=>document.getElementById(id);let history={captures:[]}, activeFilter='all';const fmt=(n)=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const safe=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const brdate=d=>{const [y,m,day]=d.split('-');return [day,m,y].join('/')};
 const hhmm=s=>{const d=new Date(s);return Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'}).format(d)};
@@ -52,12 +52,6 @@ function init(){
     document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));
     renderTable();
   }));
-  $('preciseBtn').addEventListener('click',()=>{
-    precise=!precise;
-    $('preciseBtn').setAttribute('aria-pressed',String(precise));
-    $('preciseBtn').textContent=precise?'Score resumido':'Score exato';
-    renderTable();
-  });
   $('csvBtn').addEventListener('click',exportCsv);
   $('refreshBtn').addEventListener('click',loadAndRender);
   emptyView();
@@ -83,7 +77,60 @@ function applyHistory(captures){
 }
 function fillSnapshots(){const snapshots=pool().slice().reverse();$('snapshot').innerHTML=snapshots.map(c=>`<option value="${safe(c.id)}">${safe(hhmm(c.source_updated_at))} · ${c.asset_count??c.ativos.length} ativos</option>`).join('');const assets=[...new Set(history.captures.flatMap(c=>c.ativos.map(a=>a.ativo)))].sort();const before=$('asset').value;$('asset').innerHTML=assets.map(a=>`<option value="${safe(a)}">${safe(a)}</option>`).join('');if(assets.includes(before))$('asset').value=before;else if(assets.includes('US500'))$('asset').value='US500';render();}
 function render(){const c=selected();if(!c)return;const list=c.ativos;const buys=list.filter(a=>trendBuy(a.tendencia));$('total').textContent=list.length;$('buyers').textContent=buys.length;$('sellers').textContent=list.length-buys.length;const peak=list.reduce((p,a)=>Math.abs(a.score)>Math.abs(p.score)?a:p,list[0]);$('biggest').textContent=fmt(Math.abs(peak.score));$('biggestAsset').textContent=peak.ativo;$('subtitle').textContent=`Atualização Cortex: ${brdate(c.reference_date)} às ${hhmm(c.source_updated_at)} • ${list.length} ativos`;$('timeline').innerHTML=pool().map(v=>`<div class="item"><span><b>${safe(hhmm(v.source_updated_at))}</b> <small>Atualização Cortex</small></span><span>${v.ativos.length} ativos</span></div>`).join('');renderTable();renderChart();}
-function renderTable(){const c=selected();if(!c)return;const q=$('search').value.trim().toUpperCase();const rows=c.ativos.filter(a=>String(a.ativo).toUpperCase().includes(q)&&(activeFilter==='all'||(activeFilter==='buy')===trendBuy(a.tendencia)));$('rows').innerHTML=rows.map(a=>{const buy=trendBuy(a.tendencia);const left=Math.max(0,Math.min(100,parseFloat(a.barra_inicio)||0));const width=Math.max(0,Math.min(100-left,parseFloat(a.barra_largura)||0));return `<tr><td class="rank">${safe(a.posicao)}</td><td><div class="asset">${safe(a.ativo)}</div><div class="market">${safe(a.classe||'ATIVO')}</div></td><td><span class="trend ${buy?'buy':'sell'}">${safe(a.tendencia)}</span></td><td><span class="score ${buy?'green':'red'}" title="${safe(a.score)}">${precise?safe(String(a.score)):fmt(a.score)}</span></td><td><div class="track" title="Início ${safe(a.barra_inicio)} · Largura ${safe(a.barra_largura)}"><span class="segment ${buy?'g':'r'}" style="left:${left}%;width:${width}%"></span></div></td></tr>`}).join('');$('noresults').hidden=rows.length>0;}
+// Os percentuais da fonte são prioridade. Nunca usar parseFloat em textos CSS
+// como "calc(...)" porque retornaria NaN e apagaria a barra colorida.
+function percentualBarra(valor){
+  if(typeof valor==='number')return Number.isFinite(valor)?valor:NaN;
+  if(typeof valor!=='string')return NaN;
+  const texto=valor.trim().replace(',', '.');
+  const partes=texto.match(/^([+-]?(?:\d+(?:\.\d+)?|\.\d+))\s*%?$/);
+  return partes?Number(partes[1]):NaN;
+}
+function geometriaBarra(ativo, picoCompra, picoVenda){
+  const compra=trendBuy(ativo.tendencia);
+  const inicio=percentualBarra(ativo.barra_inicio);
+  const largura=percentualBarra(ativo.barra_largura);
+  // Posições/larguras capturadas pelo coletor têm prioridade absoluta.
+  if(Number.isFinite(inicio)&&Number.isFinite(largura)&&
+     inicio>=0&&inicio<=100&&largura>0&&inicio+largura<=100.01){
+    return {inicio,largura,estimada:false};
+  }
+  // Ausência ou formato incompatível dos dados: reconstruir visualmente,
+  // conforme a força relativa de cada direção na captura selecionada.
+  const score=Math.abs(Number(ativo.score));
+  const maximo=compra?picoCompra:picoVenda;
+  const proporcao=Number.isFinite(score)&&maximo>0?
+     Math.max(0,Math.min(50,50*score/maximo)):0;
+  return {inicio:compra?50:50-proporcao,largura:proporcao,estimada:true};
+}
+function renderTable(){
+  const c=selected();if(!c)return;
+  const q=$('search').value.trim().toUpperCase();
+  const totais=c.ativos;
+  const picoCompra=Math.max(0,...totais.filter(a=>trendBuy(a.tendencia)).map(a=>Math.abs(Number(a.score))||0));
+  const picoVenda=Math.max(0,...totais.filter(a=>!trendBuy(a.tendencia)).map(a=>Math.abs(Number(a.score))||0));
+  const rows=totais.filter(a=>String(a.ativo).toUpperCase().includes(q)&&
+    (activeFilter==='all'||(activeFilter==='buy')===trendBuy(a.tendencia)));
+  $('rows').innerHTML=rows.map(a=>{
+    const buy=trendBuy(a.tendencia);
+    const geom=geometriaBarra(a,picoCompra,picoVenda);
+    const aviso=geom.estimada?
+      'Estimativa proporcional ao score; percentuais originais indisponíveis ou incompatíveis':
+      'Barra original — início '+String(a.barra_inicio)+'; largura '+String(a.barra_largura);
+    return `<tr><td class="rank">${safe(a.posicao)}</td>`+
+      `<td><div class="asset">${safe(a.ativo)}</div><div class="market">${safe(a.classe||'ATIVO')}</div></td>`+
+      `<td><span class="trend ${buy?'buy':'sell'}">${safe(a.tendencia)}</span></td>`+
+      `<td><span class="score ${buy?'green':'red'}" title="Score original: ${safe(a.score)}">${fmt(a.score)}</span></td>`+
+      `<td><div class="track" title="${safe(aviso)}" aria-label="${safe(aviso)}">`+
+      `<span class="segment ${buy?'g':'r'}" style="left:${geom.inicio}%;width:${geom.largura}%"></span></div></td></tr>`;
+  }).join('');
+  $('noresults').hidden=rows.length>0;
+  const faltantes=totais.filter(a=>geometriaBarra(a,picoCompra,picoVenda).estimada).length;
+  $('barNote').textContent=faltantes?
+    `Barras reconstruídas proporcionalmente ao score em ${faltantes} ativo(s) desta coleta porque a geometria original não pôde ser interpretada.`:
+    'Barras originais da Cortex preservadas nesta coleta.';
+}
+
 function renderChart(){const asset=$('asset').value;const all=history.captures.filter(c=>c.ativos.some(a=>a.ativo===asset)).map(c=>({x:new Date(c.source_updated_at).getTime(),y:Number(c.ativos.find(a=>a.ativo===asset).score),time:hhmm(c.source_updated_at),date:brdate(c.reference_date)}));$('chartSubtitle').textContent=`${asset} • ${all.length} captura(s) no arquivo`;const div=$('chart');if(!all.length){div.textContent='Não há capturas desse ativo.';return}const W=530,H=120,L=30,R=15,T=10,B=30;let min=Math.min(0,...all.map(v=>v.y)),max=Math.max(0,...all.map(v=>v.y));if(max===min){max+=1;min-=1}const X=i=>L+(W-L-R)*(all.length===1?.5:i/(all.length-1));const Y=v=>T+(H-T-B)*(max-v)/(max-min);const pts=all.map((v,i)=>[X(i),Y(v.y)]);const poly=pts.map(p=>p.join(',')).join(' ');const zero=Y(0);div.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Evolução do score de ${safe(asset)}"><line x1="${L}" y1="${zero}" x2="${W-R}" y2="${zero}" stroke="#557083" stroke-dasharray="4 5"/><text x="4" y="${Math.max(14,zero-4)}" fill="#7c94aa" font-size="10">0</text>${pts.length>1?`<polyline fill="none" stroke="#22e3a2" stroke-width="2.6" points="${poly}"/>`:''}${pts.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="4" fill="${all[i].y>=0?'#22e3a2':'#ff537a'}"><title>${safe(all[i].date+' '+all[i].time+': '+all[i].y)}</title></circle>`).join('')}<text x="${L}" y="${H-2}" fill="#8194a8" font-size="10">${safe(all[0].date+' '+all[0].time)}</text><text x="${W-R}" y="${H-2}" text-anchor="end" fill="#8194a8" font-size="10">${safe(all.at(-1).date+' '+all.at(-1).time)}</text></svg>`;}
 function exportCsv(){const c=selected();if(!c)return;const headers=['posicao','ativo','classe','tendencia','score','barra_inicio','barra_largura'];const quote=x=>{let s=String(x??'');if(/^[=+@-]/.test(s)&&Number.isNaN(Number(s)))s="'"+s;return '"'+s.replaceAll('"','""')+'"'};const content='\uFEFF'+[headers.join(';'),...c.ativos.map(a=>headers.map(k=>quote(a[k])).join(';'))].join('\n');const url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));const el=document.createElement('a');el.href=url;el.download=`cortex-${c.reference_date}-${hhmm(c.source_updated_at).replace(':','')}.csv`;el.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
 // GET público e paginado: nenhuma escrita, agendamento ou monitoramento contínuo.
