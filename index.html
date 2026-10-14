@@ -15,48 +15,24 @@ main{min-width:0;padding:34px clamp(18px,4vw,56px) 64px}.topline{display:flex;ju
 .lower{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.mini{padding:19px 22px}.mini h2{margin:0 0 5px;font-size:16px}.mini p{color:var(--muted);font-size:12px;margin:0 0 12px}.timeline{padding:13px 5px}.item{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #263342;padding:11px 4px;font-size:12px}.item:last-child{border-bottom:0}.item small{color:var(--muted)}.hint{color:#718699;font-size:12px;line-height:1.8}.chartarea{height:130px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:#0c1420;border:1px solid #203248;padding:10px}svg{max-width:100%}.footer{margin-top:20px;font-size:11px;color:#70839a;line-height:1.7}a{color:#7ae0c3}
 @media(max-width:1000px){.shell{grid-template-columns:1fr}aside{display:none}main{padding:22px}.statgrid{grid-template-columns:repeat(2,1fr)}.lower{grid-template-columns:1fr}}@media(max-width:540px){.statgrid{grid-template-columns:1fr 1fr}.stat .number{font-size:25px}.panelhead{align-items:flex-start}.topline{margin-bottom:16px}.toolbar{padding:13px}.control{min-width:100%}.control.wide{min-width:100%}.buttons{width:100%}.buttons button{flex:1}}
 
-/* NOVO RESUMO SUPERIOR: componente independente do histórico abaixo. */
-.quickpanel{margin:0 0 24px;border-color:#2d3d45;background:#0d1218}
-.quicktop{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:21px 23px 14px}
-.quick-eyebrow{font-size:10px;font-weight:800;letter-spacing:.14em;color:#8398a4;margin-bottom:7px}
-.quicktop h2{margin:0;font-size:23px;letter-spacing:-.045em}
-.quicktop p{margin:5px 0 0;color:#93a3b2;font-size:12px}
-.quickbadge{background:#14352c;color:#66e6b4;border:1px solid #205f4d;border-radius:7px;padding:6px 9px;font-size:11px;font-weight:800;white-space:nowrap}
-.quick-filterrow{display:flex;flex-wrap:wrap;gap:12px;align-items:end;padding:7px 23px 18px}
-.quick-field{display:flex;flex-direction:column;gap:7px;min-width:150px}
-.quick-field label,.quick-field .quick-fieldlabel{color:#8393a1;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.quick-select,.quick-class-toggle,.quick-reset{height:37px;border:1px solid #2c3843;border-radius:6px;background:#101720;color:#d3e1e9;padding:0 12px;font:inherit;font-size:12px;cursor:pointer}
-.quick-select{min-width:160px;max-width:240px}
-.quick-classes{position:relative;min-width:170px}
-.quick-classes summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:17px;cursor:pointer;white-space:nowrap}
-.quick-classes summary::-webkit-details-marker{display:none}
-.quick-classes summary:after{content:'⌄';color:#8ca3b2;font-size:16px}
-.quick-classes[open] summary{border-color:#3e8374}
-.quick-classmenu{position:absolute;top:calc(100% + 6px);left:0;z-index:20;min-width:205px;border:1px solid #2b3c48;background:#0c131c;box-shadow:0 14px 30px #000a;border-radius:9px;padding:10px}
-.quick-classsearch{height:34px;width:100%;padding:7px 10px;margin-bottom:8px;color:#dce8ef;background:#131d28;border:1px solid #2b3947;border-radius:5px}
-.quick-checkrow{display:flex;align-items:center;gap:9px;padding:7px 4px;font-size:12px;cursor:pointer;color:#e1eaf0}
-.quick-checkrow input{accent-color:#32a1fa}.quick-checkrow[hidden]{display:none}
-.quick-reset{background:transparent;border-color:transparent;color:#95a3af;height:34px}
-.quick-reset:hover{text-decoration:underline;color:#d7e9e6}
-.quick-table{min-width:740px}
-.quick-table th,.quick-table td{padding:14px 16px}
-.quick-table thead{background:#131b24}
-.quick-table .quick-name{font-weight:800;font-size:13px}
-.quick-table .quick-market{font-size:10px;color:#8594a0;margin-top:3px}
-.quick-pill{display:inline-block;border:1px solid #215f4c;background:#153a30;color:#24db91;border-radius:4px;padding:4px 8px;font-size:10px;font-weight:800;white-space:nowrap}
-.quick-pill.fx{background:#122a38;border-color:#16405b;color:#27c9ff}
-.quick-pill.major{background:#2b1b27;border-color:#4d263c;color:#ff5281}
-.quick-pill.commodities{background:#302619;border-color:#564026;color:#ffa731}
-.quick-pill.crypto{background:#26233c;border-color:#4b4274;color:#c2aaff}
-.quick-table .score{font-size:17px}
-.quick-table .track{background:#202a30;height:6px}
-.quick-table .segment{height:6px}
-.quick-notice{padding:10px 23px 15px;color:#8194a0;font-size:11px;border-top:1px solid #24313b}
-.quick-empty{padding:22px;text-align:center;color:#9aa9b5;font-size:12px}
-.history-divider{margin:0 0 13px;padding-top:1px}
-.history-divider h2{font-size:18px;letter-spacing:-.02em;margin:0 0 4px}
-.history-divider p{font-size:12px;color:var(--muted);margin:0}
-@media(max-width:640px){.quicktop{padding:17px}.quick-filterrow{padding:8px 17px 17px}.quick-field{min-width:calc(50% - 10px)}.quick-select{width:100%;min-width:0}.quicktable th,.quicktable td{padding:10px}.quicktop h2{font-size:20px}}
+/* FILTROS DO HISTÓRICO: aplicados à data e à atualização selecionadas. */
+.hist-filterrow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;padding:17px 22px;background:#0e1722;border-bottom:1px solid var(--line)}
+.hist-field{display:flex;flex-direction:column;gap:6px;min-width:148px}
+.hist-field label,.hist-fieldlabel{font-weight:700;font-size:10px;letter-spacing:.10em;color:#879aad;text-transform:uppercase}
+.hist-select,.hist-toggle,.hist-reset{height:39px;border:1px solid #314052;border-radius:8px;background:#0b121d;color:var(--txt);font:inherit;font-size:12px;padding:0 12px;cursor:pointer}
+.hist-select{min-width:165px;max-width:250px}
+.hist-classes{position:relative;min-width:172px}
+.hist-classes summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hist-classes summary::-webkit-details-marker{display:none}
+.hist-classes summary:after{content:'⌄';font-size:17px;color:#9ab0bf}
+.hist-classes[open] summary{border-color:#26aa80}
+.hist-classmenu{position:absolute;top:calc(100% + 6px);left:0;z-index:30;width:213px;background:#0b131e;border:1px solid #324454;border-radius:9px;padding:10px;box-shadow:0 16px 35px #000b}
+.hist-classsearch{width:100%;height:35px;margin-bottom:7px;border:1px solid #324454;border-radius:6px;padding:6px 10px;color:var(--txt);background:#15212e;font:inherit;font-size:12px}
+.hist-checkrow{display:flex;align-items:center;gap:9px;padding:7px 4px;font-size:12px;cursor:pointer;color:#d7e4ed}
+.hist-checkrow input{accent-color:#31a5ff}.hist-checkrow[hidden]{display:none}
+.hist-reset{color:#98abbb;border:0;background:transparent;padding:0 6px}.hist-reset:hover{color:#e5f1f6;text-decoration:underline}
+.hist-count{margin-left:auto;color:#8cacc0;font-size:11px;white-space:nowrap;padding-bottom:10px}
+@media(max-width:640px){.hist-filterrow{padding:14px;gap:10px}.hist-field{flex:1 1 43%;min-width:110px}.hist-select{max-width:none;width:100%}.hist-classes{min-width:0}.hist-classes .hist-toggle{width:100%}.hist-count{margin-left:0}}
 </style>
 </head>
 <body>
@@ -66,56 +42,35 @@ main{min-width:0;padding:34px clamp(18px,4vw,56px) 64px}.topline{display:flex;ju
 <div class="topline"><div class="crumb">ANÁLISE & TRADING / ARQUIVO</div><span class="tag" id="sourceTag">CONECTANDO…</span></div>
 <div class="intro"><div><h1>Hotlist Histórica</h1><p>Volte no tempo e compare a força dos ativos registrados pela Cortex.</p></div><div class="buttons"><button class="button" id="refreshBtn" type="button">↻ Atualizar dados</button><button class="button primary" id="csvBtn" type="button">↓ Exportar histórico completo (CSV)</button></div></div>
 <div class="notice" id="notice" role="status" aria-live="polite">Conectando ao histórico no Supabase…</div>
-<!-- VISÃO RÁPIDA: última coleta, sem FX (Cross) por padrão; o histórico original permanece abaixo. -->
-<section class="panel quickpanel" id="visao-rapida" aria-labelledby="quickTitle">
-  <div class="quicktop">
-    <div>
-      <div class="quick-eyebrow">ÚLTIMA COLETA · VISÃO RÁPIDA</div>
-      <h2 id="quickTitle">Hotlist resumida</h2>
-      <p id="quickMeta">Carregando última atualização…</p>
-    </div>
-    <span class="quickbadge" id="quickCount">SEM FX (CROSS)</span>
-  </div>
-  <div class="quick-filterrow" aria-label="Filtros da Hotlist resumida">
-    <div class="quick-field"><span class="quick-fieldlabel">Classe</span>
-      <details class="quick-classes" id="quickClasses">
-        <summary class="quick-class-toggle" aria-label="Selecionar classes de ativos"><span id="quickClassCount">4/5</span></summary>
-        <div class="quick-classmenu">
-          <input type="search" class="quick-classsearch" id="quickClassSearch" placeholder="Buscar classe…" aria-label="Buscar classe">
-          <label class="quick-checkrow"><input type="checkbox" data-quick-class="Índices" checked> Índices</label>
-          <label class="quick-checkrow"><input type="checkbox" data-quick-class="FX (Major)" checked> FX (Major)</label>
-          <label class="quick-checkrow"><input type="checkbox" data-quick-class="FX (Cross)"> FX (Cross)</label>
-          <label class="quick-checkrow"><input type="checkbox" data-quick-class="Commodities" checked> Commodities</label>
-          <label class="quick-checkrow"><input type="checkbox" data-quick-class="Cripto" checked> Cripto</label>
-        </div>
-      </details>
-    </div>
-    <div class="quick-field"><label for="quickAsset">Ativo</label>
-      <select class="quick-select" id="quickAsset"><option value="">Todos</option></select>
-    </div>
-    <div class="quick-field"><label for="quickTrend">Tendência</label>
-      <select class="quick-select" id="quickTrend">
-        <option value="">Todas</option>
-        <option value="ALTA FORTE">Alta forte</option>
-        <option value="ALTA">Alta</option>
-        <option value="BAIXA">Baixa</option>
-        <option value="BAIXA FORTE">Baixa forte</option>
-      </select>
-    </div>
-    <button class="quick-reset" type="button" id="quickClear">Limpar filtros</button>
-  </div>
-  <div class="tblwrap">
-    <table class="quick-table"><thead><tr><th>#</th><th>Ativo</th><th>Classe</th><th>Tendência</th><th>Score</th><th style="width:28%">Força e posição da barra</th></tr></thead>
-      <tbody id="quickRows"></tbody>
-    </table>
-  </div>
-  <div id="quickEmpty" class="quick-empty" hidden>Nenhum ativo corresponde aos filtros.</div>
-  <div class="quick-notice">Resumo da coleta mais recente do Supabase. FX (Cross) desmarcado por padrão. Não executa coletas nem altera o histórico.</div>
-</section>
-<div class="history-divider"><h2>Histórico completo</h2><p>Explore todas as capturas, os indicadores, os filtros originais e a evolução dos ativos.</p></div>
 <div class="toolbar"><div class="control"><label for="date">Data histórica</label><select id="date"></select></div><div class="control"><label for="snapshot">Atualização Cortex</label><select id="snapshot"></select></div><div class="control wide"><label for="asset">Ativo para evolução</label><select id="asset"></select></div></div>
 <div class="statgrid"><div class="stat"><div class="label">Ativos monitorados</div><div class="number" id="total">—</div><div class="small">Na atualização selecionada</div></div><div class="stat"><div class="label">Tendência de alta</div><div class="number pos" id="buyers">—</div><div class="small">Alta e alta forte</div></div><div class="stat"><div class="label">Tendência de baixa</div><div class="number neg" id="sellers">—</div><div class="small">Baixa e baixa forte</div></div><div class="stat"><div class="label">Maior score absoluto</div><div class="number" id="biggest">—</div><div class="small" id="biggestAsset">—</div></div></div>
-<section class="panel"><div class="panelhead"><div><h2>Ranking de força</h2><p id="subtitle">Todos os ativos da atualização selecionada</p><p id="barNote" style="font-size:11px;color:#8296a6;margin-top:5px"></p></div><div class="filters"><input id="search" class="search" placeholder="Buscar ativo" aria-label="Buscar ativo"/><button type="button" class="filter active" data-filter="all">Todos</button><button type="button" class="filter" data-filter="buy">Altas</button><button type="button" class="filter" data-filter="sell">Baixas</button></div></div><div class="tblwrap"><table><thead><tr><th>#</th><th>Ativo</th><th>Tendência</th><th>Score</th><th style="width:32%">Força e posição da barra</th></tr></thead><tbody id="rows"></tbody></table></div><div id="noresults" class="noresults" hidden>Não há ativos que correspondam ao filtro.</div></section>
+<section class="panel"><div class="panelhead"><div><h2>Ranking de força</h2><p id="subtitle">Todos os ativos da atualização selecionada</p><p id="barNote" style="font-size:11px;color:#8296a6;margin-top:5px"></p></div><div class="filters"><input id="search" class="search" placeholder="Buscar ativo" aria-label="Buscar ativo"/><button type="button" class="filter active" data-filter="all">Todos</button><button type="button" class="filter" data-filter="buy">Altas</button><button type="button" class="filter" data-filter="sell">Baixas</button></div></div><div class="hist-filterrow" aria-label="Filtros do ranking da data histórica selecionada">
+  <div class="hist-field"><span class="hist-fieldlabel">Classe</span>
+    <details class="hist-classes" id="histClasses">
+      <summary class="hist-toggle" aria-label="Selecionar classes de ativos"><span id="histClassCount">5/5</span></summary>
+      <div class="hist-classmenu">
+        <input id="histClassSearch" type="search" class="hist-classsearch" placeholder="Buscar classe…" aria-label="Buscar classe">
+        <label class="hist-checkrow"><input type="checkbox" data-hist-class="Índices" checked> Índices</label>
+        <label class="hist-checkrow"><input type="checkbox" data-hist-class="FX (Major)" checked> FX (Major)</label>
+        <label class="hist-checkrow"><input type="checkbox" data-hist-class="FX (Cross)" checked> FX (Cross)</label>
+        <label class="hist-checkrow"><input type="checkbox" data-hist-class="Commodities" checked> Commodities</label>
+        <label class="hist-checkrow"><input type="checkbox" data-hist-class="Cripto" checked> Cripto</label>
+      </div>
+    </details>
+  </div>
+  <div class="hist-field"><label for="histAsset">Ativo</label>
+    <select class="hist-select" id="histAsset"><option value="">Todos</option></select>
+  </div>
+  <div class="hist-field"><label for="histTrend">Tendência</label>
+    <select class="hist-select" id="histTrend">
+      <option value="">Todas</option><option value="ALTA FORTE">Alta forte</option>
+      <option value="ALTA">Alta</option><option value="BAIXA">Baixa</option>
+      <option value="BAIXA FORTE">Baixa forte</option><option value="NEUTRO">Neutro</option>
+    </select>
+  </div>
+  <button class="hist-reset" type="button" id="histClear">Limpar filtros</button>
+  <span class="hist-count" id="histCount" aria-live="polite">Todos os ativos</span>
+</div><div class="tblwrap"><table><thead><tr><th>#</th><th>Ativo</th><th>Tendência</th><th>Score</th><th style="width:32%">Força e posição da barra</th></tr></thead><tbody id="rows"></tbody></table></div><div id="noresults" class="noresults" hidden>Não há ativos que correspondam ao filtro.</div></section>
 <div class="lower"><section class="panel mini" id="evolucao"><h2>Evolução do ativo</h2><p id="chartSubtitle">Escolha um ativo para visualizar suas capturas ao longo do tempo.</p><div id="chart" class="chartarea"></div></section><section class="panel mini" id="coletas"><h2>Arquivo de coletas</h2><p>Registros do dia selecionado, em ordem cronológica.</p><div id="timeline" class="timeline"></div></section></div>
 <div class="footer">Cortex History — dashboard público de leitura dos registros da tabela Cortex no Supabase. Não exibe registros dos recibos. A página consulta os registros do Supabase ao abrir ou quando você clica em Atualizar dados. Scores exibidos com uma casa decimal; CSV completo com todas as datas e scores exatos preservados.</div>
 </main></div>
@@ -175,7 +130,8 @@ function emptyView(){
   $('noresults').textContent='Aguardando registros do Supabase.';
   $('chart').textContent='Aguardando dados.';
   $('timeline').innerHTML='';
-  renderQuickPanel();
+  $('histAsset').innerHTML='<option value="">Todos</option>';
+  $('histCount').textContent='Sem dados';
 }
 function applyHistory(captures){
   history.captures=normalize({captures});
@@ -185,11 +141,10 @@ function applyHistory(captures){
   $('date').innerHTML=dates.map(d=>`<option value="${safe(d)}">${brdate(d)}</option>`).join('');
   if(dates.includes(previous))$('date').value=previous;
   fillSnapshots();
-  quickAtualizarAtivos();
-  renderQuickPanel();
+  atualizarAtivosHistoricos();
 }
 function fillSnapshots(){const snapshots=pool().slice().reverse();$('snapshot').innerHTML=snapshots.map(c=>`<option value="${safe(c.id)}">${safe(hhmm(c.source_updated_at))} · ${c.asset_count??c.ativos.length} ativos</option>`).join('');const assets=[...new Set(history.captures.flatMap(c=>c.ativos.map(a=>a.ativo)))].sort();const before=$('asset').value;$('asset').innerHTML=assets.map(a=>`<option value="${safe(a)}">${safe(a)}</option>`).join('');if(assets.includes(before))$('asset').value=before;else if(assets.includes('US500'))$('asset').value='US500';render();}
-function render(){const c=selected();if(!c)return;const list=c.ativos;const buys=list.filter(a=>trendBuy(a.tendencia));$('total').textContent=list.length;$('buyers').textContent=buys.length;$('sellers').textContent=list.length-buys.length;const peak=list.reduce((p,a)=>Math.abs(a.score)>Math.abs(p.score)?a:p,list[0]);$('biggest').textContent=fmt(Math.abs(peak.score));$('biggestAsset').textContent=peak.ativo;$('subtitle').textContent=`Atualização Cortex: ${brdate(c.reference_date)} às ${hhmm(c.source_updated_at)} • ${list.length} ativos`;$('timeline').innerHTML=pool().map(v=>`<div class="item"><span><b>${safe(hhmm(v.source_updated_at))}</b> <small>Atualização Cortex</small></span><span>${v.ativos.length} ativos</span></div>`).join('');renderTable();renderChart();}
+function render(){const c=selected();if(!c)return;const list=c.ativos;const buys=list.filter(a=>trendBuy(a.tendencia));$('total').textContent=list.length;$('buyers').textContent=buys.length;$('sellers').textContent=list.length-buys.length;const peak=list.reduce((p,a)=>Math.abs(a.score)>Math.abs(p.score)?a:p,list[0]);$('biggest').textContent=fmt(Math.abs(peak.score));$('biggestAsset').textContent=peak.ativo;$('subtitle').textContent=`Atualização Cortex: ${brdate(c.reference_date)} às ${hhmm(c.source_updated_at)} • ${list.length} ativos`;$('timeline').innerHTML=pool().map(v=>`<div class="item"><span><b>${safe(hhmm(v.source_updated_at))}</b> <small>Atualização Cortex</small></span><span>${v.ativos.length} ativos</span></div>`).join('');atualizarAtivosHistoricos();renderTable();renderChart();}
 // Os percentuais da fonte são prioridade. Nunca usar parseFloat em textos CSS
 // como "calc(...)" porque retornaria NaN e apagaria a barra colorida.
 function percentualBarra(valor){
@@ -222,8 +177,16 @@ function renderTable(){
   const totais=c.ativos;
   const picoCompra=Math.max(0,...totais.filter(a=>trendBuy(a.tendencia)).map(a=>Math.abs(Number(a.score))||0));
   const picoVenda=Math.max(0,...totais.filter(a=>!trendBuy(a.tendencia)).map(a=>Math.abs(Number(a.score))||0));
-  const rows=totais.filter(a=>String(a.ativo).toUpperCase().includes(q)&&
+  const classes=classesHistoricasSelecionadas();
+  const nome=$('histAsset').value;
+  const tendencia=$('histTrend').value;
+  const rows=totais.filter(a=>(classes.has(classificarClasse(a.classe)) ||
+      (classes.size===5 && classificarClasse(a.classe)==='Outros'))&&
+    (!nome||String(a.ativo)===nome)&&
+    (!tendencia||rotuloTendencia(a)===tendencia)&&
+    String(a.ativo).toUpperCase().includes(q)&&
     (activeFilter==='all'||(activeFilter==='buy')===trendBuy(a.tendencia)));
+  $('histCount').textContent=`${rows.length} de ${totais.length} ativos`;
   $('rows').innerHTML=rows.map(a=>{
     const buy=trendBuy(a.tendencia);
     const geom=geometriaBarra(a,picoCompra,picoVenda);
@@ -384,11 +347,12 @@ async function loadAndRender(){
 }
 
 // ================================================================
-// VISÃO RÁPIDA SUPERIOR - INDEPENDENTE DO PAINEL HISTÓRICO ORIGINAL
-// Usa somente a última captura carregada. Não solicita dados adicionais.
+// FILTRO DE CLASSES DO RANKING HISTÓRICO
+// Usa SEMPRE a captura escolhida pelos selects de data e atualização.
+// Todas as classes selecionadas inicialmente: nenhuma classe é ocultada.
+// O filtro não altera os cards históricos, a evolução ou o CSV integral.
 // ================================================================
-const QUICK_DEFAULT_CLASSES=['Índices','FX (Major)','Commodities','Cripto'];
-function quickClasse(classe){
+function classificarClasse(classe){
   const s=String(classe||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
   if(s.includes('CROSS'))return 'FX (Cross)';
   if(s.includes('MAJOR'))return 'FX (Major)';
@@ -397,87 +361,58 @@ function quickClasse(classe){
   if(s.includes('CRIPTO')||s.includes('CRYPTO'))return 'Cripto';
   return 'Outros';
 }
-function quickCategorias(){
-  return new Set([...document.querySelectorAll('[data-quick-class]:checked')].map(el=>el.dataset.quickClass));
+function classesHistoricasSelecionadas(){
+  return new Set([...document.querySelectorAll('[data-hist-class]:checked')]
+    .map(el=>el.dataset.histClass));
 }
-function quickUltimaCaptura(){return history.captures.at(-1)||null}
-function quickAtualizarAtivos(){
-  const captura=quickUltimaCaptura();
-  const permitido=quickCategorias();
-  const ativoSelect=$('quickAsset');
-  const antes=ativoSelect.value;
-  const nomes=[...new Set((captura?.ativos||[])
-    .filter(a=>permitido.has(quickClasse(a.classe)))
-    .map(a=>String(a.ativo)))].sort((a,b)=>a.localeCompare(b));
-  ativoSelect.innerHTML='<option value="">Todos</option>'+nomes.map(a=>`<option value="${safe(a)}">${safe(a)}</option>`).join('');
-  if(nomes.includes(antes))ativoSelect.value=antes;
+function atualizarAtivosHistoricos(){
+  const checkboxes=[...document.querySelectorAll('[data-hist-class]')];
+  const classes=classesHistoricasSelecionadas();
+  $('histClassCount').textContent=`${checkboxes.filter(c=>c.checked).length}/5`;
+  const c=selected();
+  const select=$('histAsset');
+  const anterior=select.value;
+  const nomes=[...new Set((c?.ativos||[])
+    .filter(a=>classes.has(classificarClasse(a.classe))||
+      (classes.size===5&&classificarClasse(a.classe)==='Outros'))
+    .map(a=>String(a.ativo)))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  select.innerHTML='<option value="">Todos</option>'+nomes.map(n=>
+    `<option value="${safe(n)}">${safe(n)}</option>`).join('');
+  if(nomes.includes(anterior))select.value=anterior;
 }
-function renderQuickPanel(){
-  const captura=quickUltimaCaptura();
-  const checkboxes=[...document.querySelectorAll('[data-quick-class]')];
-  const permitido=quickCategorias();
-  $('quickClassCount').textContent=`${checkboxes.filter(a=>a.checked).length}/5`;
-  $('quickCount').textContent=captura?'CARREGANDO RESUMO':'SEM DADOS';
-  if(!captura){
-    $('quickMeta').textContent='Aguardando histórico do Supabase…';
-    $('quickRows').innerHTML='';
-    $('quickEmpty').hidden=false;
-    $('quickEmpty').textContent='Aguardando registros.';
-    return;
-  }
-  $('quickMeta').textContent=`Cortex: ${brdate(captura.reference_date)} às ${hhmm(captura.source_updated_at)} · ${captura.ativos.length} ativos na fonte`;
-  const picoCompra=Math.max(0,...captura.ativos.filter(a=>trendBuy(a.tendencia)).map(a=>Math.abs(Number(a.score))||0));
-  const picoVenda=Math.max(0,...captura.ativos.filter(a=>!trendBuy(a.tendencia)).map(a=>Math.abs(Number(a.score))||0));
-  const nome=$('quickAsset').value;
-  const tendencia=$('quickTrend').value;
-  const exibidos=captura.ativos.filter(a=>
-    permitido.has(quickClasse(a.classe))&&
-    (!nome||String(a.ativo)===nome)&&
-    (!tendencia||rotuloTendencia(a)===tendencia)
-  );
-  $('quickRows').innerHTML=exibidos.map((a,i)=>{
-    const classe=quickClasse(a.classe);
-    const buy=trendBuy(a.tendencia);
-    const geom=geometriaBarra(a,picoCompra,picoVenda);
-    const extra=classe==='FX (Major)'?'major':classe==='FX (Cross)'?'fx':classe==='Commodities'?'commodities':classe==='Cripto'?'crypto':'';
-    const barra=geom.estimada?'Visual estimado proporcional ao score':'Barra original coletada';
-    return `<tr><td class="rank">${i+1}</td>`+
-      `<td><div class="quick-name">${safe(a.ativo)}</div><div class="quick-market">${safe(a.classe||'')}</div></td>`+
-      `<td><span class="quick-pill ${extra}">${safe(classe)}</span></td>`+
-      `<td><span class="trend ${buy?'buy':'sell'}">${safe(rotuloTendencia(a))}</span></td>`+
-      `<td><span class="score ${buy?'green':'red'}" title="Score exato: ${safe(a.score)}">${fmt(a.score)}</span></td>`+
-      `<td><div class="track" title="${safe(barra)}"><span class="segment ${buy?'g':'r'}" style="left:${geom.inicio}%;width:${geom.largura}%"></span></div></td></tr>`;
-  }).join('');
-  $('quickCount').textContent=`${exibidos.length} ATIVOS (DE ${captura.ativos.length})`;
-  $('quickEmpty').hidden=exibidos.length>0;
-  $('quickEmpty').textContent='Nenhum ativo corresponde aos filtros selecionados.';
-}
-function initQuickPanel(){
-  document.querySelectorAll('[data-quick-class]').forEach(c=>c.addEventListener('change',()=>{
-    quickAtualizarAtivos();renderQuickPanel();
-  }));
-  $('quickAsset').addEventListener('change',renderQuickPanel);
-  $('quickTrend').addEventListener('change',renderQuickPanel);
-  $('quickClear').addEventListener('click',()=>{
-    document.querySelectorAll('[data-quick-class]').forEach(c=>c.checked=QUICK_DEFAULT_CLASSES.includes(c.dataset.quickClass));
-    $('quickClassSearch').value='';
-    document.querySelectorAll('.quick-checkrow').forEach(r=>r.hidden=false);
-    $('quickTrend').value='';
-    quickAtualizarAtivos();
-    $('quickAsset').value='';
-    renderQuickPanel();
-    $('quickClasses').open=false;
-  });
-  $('quickClassSearch').addEventListener('input',()=>{
-    const q=$('quickClassSearch').value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-    document.querySelectorAll('.quick-checkrow').forEach(el=>{
-      const titulo=el.textContent.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-      el.hidden=!titulo.includes(q);
+function initFiltrosHistoricos(){
+  document.querySelectorAll('[data-hist-class]').forEach(c=>
+    c.addEventListener('change',()=>{atualizarAtivosHistoricos();renderTable();}));
+  $('histAsset').addEventListener('change',renderTable);
+  $('histTrend').addEventListener('change',renderTable);
+  $('histClassSearch').addEventListener('input',()=>{
+    const q=$('histClassSearch').value.normalize('NFD')
+      .replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    document.querySelectorAll('.hist-checkrow').forEach(r=>{
+      r.hidden=!r.textContent.normalize('NFD')
+        .replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q);
     });
+  });
+  $('histClear').addEventListener('click',()=>{
+    document.querySelectorAll('[data-hist-class]').forEach(c=>c.checked=true);
+    $('histClassSearch').value='';
+    document.querySelectorAll('.hist-checkrow').forEach(r=>r.hidden=false);
+    $('histTrend').value='';
+    $('search').value='';
+    activeFilter='all';
+    document.querySelectorAll('[data-filter]').forEach(b=>
+      b.classList.toggle('active',b.dataset.filter==='all'));
+    atualizarAtivosHistoricos();
+    $('histAsset').value='';
+    $('histClasses').open=false;
+    renderTable();
+  });
+  document.addEventListener('click',e=>{
+    if(!$('histClasses').contains(e.target))$('histClasses').open=false;
   });
 }
 
-initQuickPanel();
+initFiltrosHistoricos();
 init();
 void loadAndRender();
 </script>
